@@ -6,6 +6,7 @@ app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:blog-a-build@localhost:8890/build-a-blog'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
+app.secret_key = 'bootpootddd'
 
 class Blog(db.Model):
 
@@ -22,28 +23,23 @@ def add():
     if request.method == 'POST':
         name = request.form['blog-name']
         text = request.form['blog-text']
+        
         if len(name) > 0 and len(text) >0:
             flash("Blog added!")
+            new_blog = Blog(name, text)
+            db.session.add(new_blog)
+            db.session.commit()
+
             return redirect('/blog')
-        else:
-            flash("Please input a title and blog text!")
+        if len(name) == 0:
+            flash("Please input a title!", "name_error")
+        if len(text) == 0:
+            flash("Please fill in the blog text!", "text_error")
 
     return render_template('newpost.html')
 
-@app.route('/added', methods=['POST'])
-def added():
-    return redirect('/blog')
-
 @app.route('/blog', methods=['POST', 'GET'])
 def index():
-
-    if request.method == 'POST':
-        name = request.form['blog-name']
-        text = request.form['blog-text']
-        new_blog = Blog(name, text)
-        db.session.add(new_blog)
-        db.session.commit()
-
     blogs = Blog.query.all()
 
     return render_template('index.html', blogs=blogs)

@@ -1,12 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form action="/added" method="POST">
+<form action='/newpost' method="POST">
     <label>
         Blog Title:
-        <input type="text" name="blog-name" value={{name}}/>
+        <input type="text" name="blog-name" />
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            <ul>
+                {% for category,message in messages %}
+                    <li class="{{category}}">{{message}}</li>
+                {% endfor %}
+            </ul>
+        {% endwith %}
+    <br>
         Blog Text:
-        <input type="text" name="blog-text" value={{text}}/>
+        <input type="text" name="blog-text" />
+        {% with messages = get_flashed_messages(with_categories=True) %}
+        <ul>
+            {% for category,message in messages %}
+                <li class="{{category}}">{{message}}</li>
+            {% endfor %}
+        </ul>
+        {% endwith %}
     </label>
     <input type="submit" value="add blog" />
 </form>
