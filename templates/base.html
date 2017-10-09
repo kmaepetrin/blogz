@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{title}}</title>
+        <style>
+            .error {
+                color: red;
+            }
+
+            h1 {
+                font-size:28px;
+            }
+            h3 {
+                font-size:14px;
+            }
+
+            a {
+                text-decoration: none;
+                color:blueviolet;
+                font-size:12px;
+
+            }
+
+            a:hover {
+                color:brown;
+            }
+
+        </style>
+    </head>
+    <body>
+
+            <a href="/blog">Home</a> || 
+            <a href="/newpost">Add a new blog</a>
+            <hr>
+
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            <ul>
+            {% for category,message in messages %}
+                <li class="{{category}}">{{message}}</li>
+            {% endfor %}
+            </ul>
+        {% endwith %}
+
+        {% block content %}
+        {% endblock %}
+
+    </body>
+</html>

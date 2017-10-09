@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="/added" method="POST">
+    <label>
+        Blog Title:
+        <input type="text" name="blog-name" value={{name}}/>
+        Blog Text:
+        <input type="text" name="blog-text" value={{text}}/>
+    </label>
+    <input type="submit" value="add blog" />
+</form>
+
+{% endblock %}
