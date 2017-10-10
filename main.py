@@ -31,18 +31,25 @@ def add():
             db.session.commit()
 
             return redirect('/blog')
+
         if len(name) == 0:
-            flash("Please input a title!", "name_error")
+            flash("Please input a title!", "error")
         if len(text) == 0:
-            flash("Please fill in the blog text!", "text_error")
+            flash("Please fill in the blog text!", "error")
 
     return render_template('newpost.html')
 
 @app.route('/blog', methods=['POST', 'GET'])
 def index():
+    blog_id = request.args.get('id')
     blogs = Blog.query.all()
 
-    return render_template('index.html', blogs=blogs)
+    if blog_id:
+        blog = session.query(id).filter_by(id=blog_id).first()
+
+        return render_template('blog.html', blog=blog)
+    else:
+        return render_template('index.html', blogs=blogs)
 
 if __name__ == '__main__':
     app.run()
