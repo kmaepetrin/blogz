@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, render_template, session, flash
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -13,6 +14,7 @@ class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120))
     text = db.Column(db.String(1000000))
+    pub_date = db.Column(db.DateTime)
 
     def __init__(self, name, text):
         self.name = name
@@ -30,7 +32,9 @@ def add():
             db.session.add(new_blog)
             db.session.commit()
 
-            return redirect('/blog')
+            str_id = str(new_blog.id)
+
+            return redirect('/blog?id=' + str_id)
 
         if len(name) == 0:
             flash("Please input a title!", "error")
@@ -44,8 +48,8 @@ def index():
     blog_id = request.args.get('id')
     blogs = Blog.query.all()
 
-    if blog_id:
-        blog = session.query(id).filter_by(id=blog_id).first()
+    if request.args:
+        blog = Blog.query.filter_by(id=blog_id).first()
 
         return render_template('blog.html', blog=blog)
     else:
