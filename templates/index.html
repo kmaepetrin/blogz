@@ -3,6 +3,14 @@
 {% block content %}
         <h1>Build a Blog</h1>
 
+        {% with messages = get_flashed_messages(with_categories=True) %}
+        <ul>
+            {% for category,message in messages %}
+                <li class="{{category}}">{{message}}</li>
+            {% endfor %}
+        </ul>
+        {% endwith %}
+
         {% for blog in blogs %}
             <form action="/blog" name="id">
             <h1>

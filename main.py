@@ -16,9 +16,12 @@ class Blog(db.Model):
     text = db.Column(db.String(1000000))
     pub_date = db.Column(db.DateTime)
 
-    def __init__(self, name, text):
+    def __init__(self, name, text, pub_date=None):
         self.name = name
         self.text = text
+        if pub_date is None:
+            pub_date = datetime.utcnow()
+        self.pub_date = pub_date
 
 @app.route('/newpost', methods=['POST', 'GET'])
 def add():
