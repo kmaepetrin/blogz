@@ -5,13 +5,6 @@
     <label>
         Blog Title:
         <input type="text" name="blog-name" value="{{name}}"/>
-        {% with messages = get_flashed_messages(with_categories=True) %}
-            <ul>
-                {% for category,message in messages %}
-                    <li class="{{category}}">{{message}}</li>
-                {% endfor %}
-            </ul>
-        {% endwith %}
     <br>
         Blog Text:
         <input type="text" name="blog-text" value="{{text}}"/>

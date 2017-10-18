@@ -7,17 +7,9 @@
                 color: red;
             }
 
-            h1 {
-                font-size:28px;
-            }
-            h3 {
-                font-size:14px;
-            }
-
             a {
                 text-decoration: none;
                 color:blueviolet;
-                font-size:12px;
 
             }
 
@@ -29,8 +21,13 @@
     </head>
     <body>
 
-            <a href="/blog">Home</a> || 
+            <a href="/blog">Blogs</a> || 
             <a href="/newpost">Add a new blog</a>
+            <br>
+            <a href="/login">Login</a>
+            <a href="/signup">Signup</a>
+            <a href="/logout">Logout</a>
+            <a href="/">Home</a>
             <hr>
 
         {% with messages = get_flashed_messages(with_categories=True) %}
