@@ -3,6 +3,21 @@
 {% block content %}
 <h1>{{user.username}}</h1>
 
-doot
+{% for blog in blogs %}
+<h1>
+    <a href="./blog?id={{blog.id}}">
+    {{blog.name}} 
+    <input id="blog-id" type="hidden" name="blog_id" value="{{blog.id}}" />
+    </a>
+</h1>
+<h3>{{blog.text}}</h3>
+<h4>by
+    <a href="./?user={{blog.owner.id}}">
+        {{blog.owner.username}} 
+        <input id="user-id" type="hidden" name="user_id" value="{{user.id}}" />
+    </a>
+</h4>
+<hr>
+{% endfor %}
 
 {% endblock %}

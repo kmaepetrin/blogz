@@ -13,10 +13,10 @@
             </h1>
             <h3>{{blog.text}}</h3>
             <h4>by
-                    <a href="./?user={{user.id}}">
-                        {{user.username}} 
-                        <input id="user-id" type="hidden" name="user_id" value="{{user.id}}" />
-                    </a>
+                <a href="./?user={{blog.owner.id}}">
+                    {{blog.owner.username}} 
+                    <input id="user-id" type="hidden" name="user_id" value="{{user.id}}" />
+                </a>
             </h4>
             </form>
             <hr>

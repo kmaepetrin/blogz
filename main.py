@@ -9,6 +9,8 @@ app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 app.secret_key = 'bootpootddd'
 
+#databases
+
 class Blog(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -36,6 +38,8 @@ class User(db.Model):
         self.username = username
         self.password = password
 
+#posting
+
 @app.route('/newpost', methods=['POST', 'GET'])
 def add():
     if request.method == 'POST':
@@ -60,11 +64,13 @@ def add():
 
     return render_template('newpost.html')
 
+#viewing
+
 @app.route('/blog', methods=['POST', 'GET'])
 def list_blogs():
     blog_id = request.args.get('id')
     blogs = Blog.query.all()
-    user_id = request.args.get('id')
+    user_id = request.args.get('user')
     users = User.query.all()
 
     if request.args:
@@ -79,15 +85,21 @@ def list_blogs():
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    user_id = request.args.get('id')
+    blog_id = request.args.get('id')
+    blogs = Blog.query.all()
+    user_id = request.args.get('user')
     users = User.query.all()
 
     if request.args:
         user = User.query.filter_by(id=user_id).first()
+        blogs = Blog.query.filter_by(owner_id=user_id).all()
 
-        return render_template('user.html', user=user)
+        return render_template('user.html', user=user, blogs=blogs)
     else:
-        return render_template('index.html', users=users)
+        user = User.query.filter_by(id=user_id).first()
+        users = User.query.all()
+
+        return render_template('index.html', users=users, user=user)
 
 # login, out, etc
 

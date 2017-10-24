@@ -4,8 +4,8 @@
 <h1>{{blog.name}}</h1>
 <h2>{{blog.text}}</h2>
 <h3>by  
-    <a href="./?user={{user.id}}">
-        {{user.username}} 
+    <a href="./?user={{blog.owner.id}}">
+        {{blog.owner.username}} 
         <input id="user-id" type="hidden" name="user_id" value="{{user.id}}" />
     </a>
 </h3>
